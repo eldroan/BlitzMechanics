@@ -13,7 +13,8 @@ public class BlitzController : MonoBehaviour
     [SerializeField] private bool movingForward;
     private bool targetHit;
 
-    GameObject hitGO;
+    //GameObject hitGO;
+    List<GameObject> objectsHit;
 
     // Start is called before the first frame update
     void Start()
@@ -21,6 +22,7 @@ public class BlitzController : MonoBehaviour
         firingArm = false;
         targetHit = false;
         movingForward = true;
+        objectsHit = new List<GameObject>();
     }
 
     // Update is called once per frame
@@ -63,9 +65,16 @@ public class BlitzController : MonoBehaviour
                     if (targetHit)
                     {
                         //Do something here
-                        Destroy(hitGO);
-                        hitGO = null;
-                        EnemySpawner.currentSpawnedEnemies--;
+                        //Destroy(hitGO);
+                        //hitGO = null;
+                        //EnemySpawner.currentSpawnedEnemies--;
+                        foreach(GameObject enemy in objectsHit)
+                        {
+                            //objectsHit.Remove(enemy);
+                            Destroy(enemy);
+                            EnemySpawner.currentSpawnedEnemies--;
+                        }
+                        objectsHit = new List<GameObject>();
                     }
                     firingArm = false;
                 }
@@ -80,7 +89,8 @@ public class BlitzController : MonoBehaviour
 
             targetHit = true;
             movingForward = false;
-            hitGO = collision.gameObject;
+            //hitGO = collision.gameObject;
+            objectsHit.Add(collision.gameObject);
         }
     }
     
