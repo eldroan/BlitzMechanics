@@ -32,7 +32,8 @@ public class GrabbableCharacter : MonoBehaviour
         {
             Debug.Log("Soy un character y me pego un player");
             dontAutoDestroy = true;
-            this.gameObject.transform.parent = collision.gameObject.transform;
+            //this.gameObject.transform.parent = collision.gameObject.transform;
+            this.gameObject.transform.SetParent(collision.gameObject.transform, false);
             this.gameObject.transform.localPosition = Vector3.zero;
         }
     }
